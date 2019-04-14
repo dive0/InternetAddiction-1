@@ -3,178 +3,214 @@
 
 <head>
 
-    <title>Form Basics</title>
+    <title>Survey</title>
     <meta charset="utf-8">
-    <link href='https://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=Crimson+Text' rel='stylesheet' type='text/css'>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <link href='https://fol,nts.googleapis.com/css?family=Crimson+Text' rel='stylesheet' type='text/css'>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../dist/css/style.css">
+    <script type='text/javascript' src='jquery.min.js'></script>
+  <script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
     <script>
-    function scoreUp(){
-        // const question1 = document.getElementById('q1');
-        // const question2 = document.getElementById('q2');
-        // const question3 = document.getElementById('q3');
-        // const question4 = document.getElementById('q4');
-        // const question5 = document.getElementById('q5');
-        // const question6 = document.getElementById('q6');
-        // const question7 = document.getElementById('q7');
-        // const question8 = document.getElementById('q8');
-        // const question9 = document.getElementById('q9');
-        // const question10 = document.getElementById('q10');
-         var choices = document.getElementsByTagName('input');
-  // loop through all the radio inputs
+    $(document).ready(function(){
+      $( "#result" ).fadeOut();
+        $("#last_question").fadeOut();
+        $('#bar').fadeOut();
+      $('#myForm').submit(function (evt) {
+       evt.preventDefault();
+      });
+    });
+function scoreUp(){
+  var choices = document.getElementsByTagName('input');
+      $(document).ready(function(){
+        $("#result").fadeOut();
+        $("#last_question").fadeOut();
+        $('#bar').fadeOut();
+        
+      });
+  score = 0;
+  checked = 0;
+   
   for (i=0; i<choices.length; i++) {
     // if the radio is checked..
-    score = 0;
+     
+     
       // add 1 to that choice's score
+     if (choices[i].checked) {
+       checked += 1;
       if (choices[i].value == 'never') {
         score += 0;
       }
-      if (choices[i].value == 'rarely') {
+      else if (choices[i].value == 'rarely') {
         score += 1;
       }
-      if (choices[i].value == 'sometimes') {
+      else if (choices[i].value == 'sometimes') {
         score +=2;
       }
-      if (choices[i].value == 'often') {
+      else if (choices[i].value == 'often') {
         score +=3;
       }
-      if (choices[i].value == 'very_often') {
-        score +=5;
+      else if (choices[i].value == 'very_often') {
+        score +=4;
       }
+     }
+     
+     $(document).ready(function(){
+       
+        if (checked >= choices.length/5){
+        $("#fade").fadeOut(1000);
+        $('#last_question').fadeIn(3300);
+        
+        }
+      });
     }
-    }
+    // 40 is number of inputs besides A, which is a score of 0 
+     if (score <= 40/4){
+       advice = "Good Job! Your mental Health is well and you should keep it at this pace!<img src = 'https://www.healthvalues.org/assets/2016/02/living-a-healthy-lifestyle-with-values.jpg'>";
+       bar = "success"
+     }else if (score <= 40/4*2){
+       advice = "You should practice using your electronics less so that it doesn't become a habit and then addiction. You're mental health is still well.<img src = 'https://clearrecoverycenter.com/wp-content/uploads/2018/08/BlogImg_CellPhoneAddiction1.jpg'>";
+       bar = "info";
+     }else if(score <= 40/4*3){
+       advice = "You should limit the time you use your electronics! Use Screen Time if you're on the iOS or Social Fever and App Usage if you're on Android. Your mental health might be a bit unstable, but don't worry, you still have time to change!<img src = 'https://suescheffadvocate.files.wordpress.com/2012/06/fbaddict3.jpg'>";
+       bar = "warning";
+     }else{
+       advice = "You should seek medical advice from a professional and have a friend of family help keep track and limit your time online. <img src='https://fm.cnbc.com/applications/cnbc.com/resources/img/editorial/2017/08/07/104637344-GettyImages-500954613.530x298.jpg?v=1504018730'>";
+       bar = "danger";
+     }
+    percentage = Math.round((score/40)*100);
+    document.getElementById("result").innerHTML = "<div class = 'container'>*Note the higher the bar is the worst your mental status is.<br><h4><font color = 'white'>You scores: " + score +"/40 </font><br><h3><i><font color = 'white'>" + advice + "</font></i></h3></h4></div>";
+    // document.getElementById("bar").innerHTML = "HelloWorld";
+    $(document).ready(function(){
+        $('#bar').append("  <div class='progress'><div class='progress-bar progress-bar-"+bar+" progress-bar-striped' role='progressbar' style='width:"+percentage+"%'>"+percentage+"% </div></div>");
+          // $("#bar").apprend('<div class="progress"><div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:40%">40% Complete (success)</div></div>');
+ });
+}
+
+$(document).ready(function(){
+  $("#setup").click(function(){
+    $("#last_question").fadeOut(600);
+    $('#result').fadeIn(2100);
+    $('#bar').fadeIn(2900);
+  });
+  $("#setup2").click(function(){
+    $("#last_question").fadeOut(600);
+    $('#result').fadeIn(2500);
+    $('#bar').fadeIn(3200);
+
+
+  });
+});
     </script>
+    
+    <style>
+       .h5 {
+        font: #ffffff;
+      }
+    </style>
 </head>
 
-<body>
-    <div class="container">
-        <h1>Form Basics</h1>
-        <hr>
-        <form action="http://www.w3schools.com/action_page.php" method="get">
+<body style="background-color:black;">
+  <font color = '#ffffff'>
+  	<ul id="nav">
+  		<li style="float: left;" id="tabs"><a href="../index.html">Home</a></li>
+  		<li style="float: left;" id="tabs"><a href="about_us.html ">About us</a></li>
+  		<li style="float: left;" id="tabs"><a href="ph.html">Phone Relief</a></li>
+  		<li style="float: left;" id="tabs"><a class="active">Survey</a></li>
+  		<li style="float:right" id="tabs"><a href="contact_us.html">Contact us</a></li>
+	</ul>
 
-            <h5>Question 1:<b> Do you find yourself frustrated and/or upset when others seek your attention while you are online?</b></h5><br>
-            <label><input type="radio" name="q1" value="never" required>Never</label><br>
-            <label><input type="radio" name="q1" value="rarely">Rarely</label><br>
-            <label><input type="radio" name="q1" value="sometimes" >Sometimes</label><br>
-            <label><input type="radio" name="q1" value="often">Often</label><br>
-            <label><input type="radio" name="q1" value="very_often" >Very Often</label><hr>
-            <h5>Question 2:<b> I use the internet as a escape from my life.</b></h5><br>
-            <label><input type="radio" name="q1" value="never" required>Never</label><br>
-            <label><input type="radio" name="q1" value="rarely">Rarely</label><br>
-            <label><input type="radio" name="q1" value="sometimes" >Sometimes</label><br>
-            <label><input type="radio" name="q1" value="often">Often</label><br>
-            <label><input type="radio" name="q1" value="very_often" >Very Often</label><hr>
-            <h5>Question 3:<b> I have tried to reduce my smartphone or internet use without success.</b></h5><br>
-            <label><input type="radio" name="q1" value="never" required>Never</label><br>
-            <label><input type="radio" name="q1" value="rarely">Rarely</label><br>
-            <label><input type="radio" name="q1" value="sometimes" >Sometimes</label><br>
-            <label><input type="radio" name="q1" value="often">Often</label><br>
-            <label><input type="radio" name="q1" value="very_often" >Very Often</label><hr>
-            <h5>Question 4:<b> Have you tried to spend less time using your internet-connected device (desktop, smartphone, or tablet) but found it challenging?</b></h5><br>
-            <label><input type="radio" name="q1" value="never" required>Never</label><br>
-            <label><input type="radio" name="q1" value="rarely">Rarely</label><br>
-            <label><input type="radio" name="q1" value="sometimes" >Sometimes</label><br>
-            <label><input type="radio" name="q1" value="often">Often</label><br>
-            <label><input type="radio" name="q1" value="very_often" >Very Often</label><hr>
-            <h5>Question 5:<b> I feel anxious when I do not have my smartphone with me.</b></h5><br>
-            <label><input type="radio" name="q1" value="never" required>Never</label><br>
-            <label><input type="radio" name="q1" value="rarely">Rarely</label><br>
-            <label><input type="radio" name="q1" value="sometimes" >Sometimes</label><br>
-            <label><input type="radio" name="q1" value="often">Often</label><br>
-            <label><input type="radio" name="q1" value="very_often" >Very Often</label><hr>
-            <h5>Question 6:<b> Are you trying to fall asleep while browsing the internet but having trouble doing so and/or are you waking frequently to check your internet-connected device?</b></h5><br>
-            <label><input type="radio" name="q1" value="never" required>Never</label><br>
-            <label><input type="radio" name="q1" value="rarely">Rarely</label><br>
-            <label><input type="radio" name="q1" value="sometimes" >Sometimes</label><br>
-            <label><input type="radio" name="q1" value="often">Often</label><br>
-            <label><input type="radio" name="q1" value="very_often" >Very Often</label><hr>
-            <h5>Question 7:<b> When using the internet do you find that you lose track of time and feel surprised when you realize the time spent surfing the web?</b></h5><br>
-            <label><input type="radio" name="q1" value="never" required>Never</label><br>
-            <label><input type="radio" name="q1" value="rarely">Rarely</label><br>
-            <label><input type="radio" name="q1" value="sometimes" >Sometimes</label><br>
-            <label><input type="radio" name="q1" value="often">Often</label><br>
-            <label><input type="radio" name="q1" value="very_often" >Very Often</label><hr>
-            <h5>Question 8:<b> Have you been ashamed of or tried to hide how much time you spend on your internet-connected device?</b></h5><br>
-            <label><input type="radio" name="q1" value="never" required>Never</label><br>
-            <label><input type="radio" name="q1" value="rarely">Rarely</label><br>
-            <label><input type="radio" name="q1" value="sometimes" >Sometimes</label><br>
-            <label><input type="radio" name="q1" value="often">Often</label><br>
-            <label><input type="radio" name="q1" value="very_often" >Very Often</label><hr>
-            <h5>Question 9:<b> I’d rather stay home gaming, doing social media, or otherwise spending time online than go out with my friends.</b></h5><br>
-            <label><input type="radio" name="q1" value="never" required>Never</label><br>
-            <label><input type="radio" name="q1" value="rarely">Rarely</label><br>
-            <label><input type="radio" name="q1" value="sometimes" >Sometimes</label><br>
-            <label><input type="radio" name="q1" value="often">Often</label><br>
-            <label><input type="radio" name="q1" value="very_often" >Very Often</label><hr>
-            <h5>Question 10:<b> Do you find yourself using the internet in specific situations where it might be less appropriate? For example, at school during class, while at work despite rules against it, during a ceremony (funeral/wedding/service), at a theater during a concert/play/movie, etc.</b></h5><br>
-            <label><input type="radio" name="q1" value="never" required>Never</label><br>
-            <label><input type="radio" name="q1" value="rarely">Rarely</label><br>
-            <label><input type="radio" name="q1" value="sometimes" >Sometimes</label><br>
-            <label><input type="radio" name="q1" value="often">Often</label><br>
-            <label><input type="radio" name="q1" value="very_often" >Very Often</label><br>
-
-
-</form> 
-<!--            <select name="state"><b><option><option>AL<option>AK-->
-<!--<option>AZ-->
-<!--<option>AR-->
-<!--<option>CA-->
-<!--<option>CO-->
-<!--<option>CT-->
-<!--<option>DE-->
-<!--<option>FL-->
-<!--<option>GA-->
-<!--<option>HI-->
-<!--<option>ID-->
-<!--<option>IL-->
-<!--<option>IN-->
-<!--<option>IA-->
-<!--<option>KS-->
-<!--<option>KY-->
-<!--<option>LA-->
-<!--<option>ME-->
-<!--<option>MD-->
-<!--<option>MA-->
-<!--<option>MI-->
-<!--<option>MN-->
-<!--<option>MS-->
-<!--<option>MO-->
-<!--<option>MT-->
-<!--<option>NE-->
-<!--<option>NV-->
-<!--<option>NH-->
-<!--<option>NJ-->
-<!--<option>NM-->
-<!--<option>NY-->
-<!--<option>NC-->
-<!--<option>ND-->
-<!--<option>OH-->
-<!--<option>OK-->
-<!--<option>OR-->
-<!--<option>PA-->
-<!--<option>RI-->
-<!--<option>SC-->
-<!--<option>SD-->
-<!--<option>TN-->
-<!--<option>TX-->
-<!--<option>UT-->
-<!--<option>VT-->
-<!--<option>VA-->
-<!--<option>WA-->
-<!--<option>WV-->
-<!--<option>WI-->
-<!--<option>WY</b></select>-->
+    <div class="container" id ='fade'>
+        <h1><font color = "#fffff">Internet Addiction Survey</font></h1>
+        <font color = "#ced4dd">*Note this survey is not 100% accurate, this is to test your self-awareness and control of your electronic devices.<br><b>This is a 10 question survey, and every question is required to be filled in to sumbit</b>
+        </font><hr>
         
-            <br>
-            <input class="blue-button" type="submit" value="Submit">
-        </form>
+        <form id="myForm" name="myForm">
+             <h5> <font color = '#ffffff'>Question 1: Do you find yourself frustrated and/or upset when others seek your attention while you are online?</h5></font><br>
+            <label><input type="radio" name="q1" value="never" required> Never</label><br>
+            <label><input type="radio" name="q1" value="rarely"> Rarely</label><br>
+            <label><input type="radio" name="q1" value="sometimes" > Sometimes</label><br>
+            <label><input type="radio" name="q1" value="often"> Often</label><br>
+            <label><input type="radio" name="q1" value="very_often" > Very Often</label><hr>
+            <h5><font color = '#ffffff'>Question 2:<b> I use the internet as a escape from my life.</b></font></h5><br>
+            <label><input type="radio" name="q2" value="never" required> Never</label><br>
+            <label><input type="radio" name="q2" value="rarely"> Rarely</label><br>
+            <label><input type="radio" name="q2" value="sometimes" > Sometimes</label><br>
+            <label><input type="radio" name="q2" value="often"> Often</label><br>
+            <label><input type="radio" name="q2" value="very_often" > Very Often</label><hr>
+            <h5><font color = '#ffffff'>Question 3:<b> I have tried to reduce my smartphone or internet use without success.</b></font></h5><br>
+            <label><input type="radio" name="q3" value="never" required> Never</label><br>
+            <label><input type="radio" name="q3" value="rarely"> Rarely</label><br>
+            <label><input type="radio" name="q3" value="sometimes" > Sometimes</label><br>
+            <label><input type="radio" name="q3" value="often"> Often</label><br>
+            <label><input type="radio" name="q3" value="very_often" > Very Often</label><hr>
+            <h5><font color = '#ffffff'>Question 4:<b> Have you tried to spend less time using your internet-connected device (desktop, smartphone, or tablet) but found it challenging?</b></font></h5><br>
+            <label><input type="radio" name="q4" value="never" required> Never</label><br>
+            <label><input type="radio" name="q4" value="rarely"> Rarely</label><br>
+            <label><input type="radio" name="q4" value="sometimes" > Sometimes</label><br>
+            <label><input type="radio" name="q4" value="often"> Often</label><br>
+            <label><input type="radio" name="q4" value="very_often" > Very Often</label><hr>
+            <h5><font color = '#ffffff'>Question 5:<b> I feel anxious when I do not have my smartphone with me.</b></font></h5><br>
+            <label><input type="radio" name="q5" value="never" required> Never</label><br>
+            <label><input type="radio" name="q5" value="rarely"> Rarely</label><br>
+            <label><input type="radio" name="q5" value="sometimes" > Sometimes</label><br>
+            <label><input type="radio" name="q5" value="often"> Often</label><br>
+            <label><input type="radio" name="q5" value="very_often" > Very Often</label><hr>
+            <h5><font color = '#ffffff'>Question 6:<b> Are you trying to fall asleep while browsing the internet but having trouble doing so and/or are you waking frequently to check your internet-connected device?</b></font></h5><br>
+            <label><input type="radio" name="q6" value="never" required> Never</label><br>
+            <label><input type="radio" name="q6" value="rarely"> Rarely</label><br>
+            <label><input type="radio" name="q6" value="sometimes" > Sometimes</label><br>
+            <label><input type="radio" name="q6" value="often"> Often</label><br>
+            <label><input type="radio" name="q6" value="very_often" > Very Often</label><hr>
+            <h5><font color = '#ffffff'>Question 7:<b> When using the internet do you find that you lose track of time and feel surprised when you realize the time spent surfing the web?</b></font></h5><br>
+            <label><input type="radio" name="q7" value="never" required> Never</label><br>
+            <label><input type="radio" name="q7" value="rarely"> Rarely</label><br>
+            <label><input type="radio" name="q7" value="sometimes" > Sometimes</label><br>
+            <label><input type="radio" name="q7" value="often"> Often</label><br>
+            <label><input type="radio" name="q7" value="very_often" > Very Often</label><hr>
+            <h5><font color = '#ffffff'>Question 8:<b> Have you been ashamed of or tried to hide how much time you spend on your internet-connected device?</b></font></h5><br>
+            <label><input type="radio" name="q8" value="never" required> Never</label><br>
+            <label><input type="radio" name="q8" value="rarely"> Rarely</label><br>
+            <label><input type="radio" name="q8" value="sometimes" > Sometimes</label><br>
+            <label><input type="radio" name="q8" value="often"> Often</label><br>
+            <label><input type="radio" name="q8" value="very_often" > Very Often</label><hr>
+            <h5><font color = '#ffffff'>Question 9:<b> I’d rather stay home gaming, doing social media, or otherwise spending time online than go out with my friends.</b></font></h5><br>
+            <label><input type="radio" name="q9" value="never" required> Never</label><br>
+            <label><input type="radio" name="q9" value="rarely"> Rarely</label><br>
+            <label><input type="radio" name="q9" value="sometimes" > Sometimes</label><br>
+            <label><input type="radio" name="q9" value="often"> Often</label><br>
+            <label><input type="radio" name="q9" value="very_often" > Very Often</label><hr>
+            <h5><font color = '#ffffff'>Question 10:<b> Do you find yourself using the internet in specific situations where it might be less appropriate? For example, at school during class, while at work despite rules against it, during a ceremony (funeral/wedding/service), at a theater during a concert/play/movie, etc.</b></font></h5><br>
+            <label><input type="radio" name="q10" value="never" required> Never</label><br>
+            <label><input type="radio" name="q10" value="rarely"> Rarely</label><br>
+            <label><input type="radio" name="q10" value="sometimes"> Sometimes</label><br>
+            <label><input type="radio" name="q10" value="often"> Often</label><br>
+            <label><input type="radio" name="q10" value="very_often" > Very Often</label><br>
+            <br></font>
+
+             <button type="submit" id="submit" onclick="scoreUp()"><font color = "black">Submit Your Answers</font></button>
+            </form><br>
     </div>
+    <center>
+      
+      <div id = "last_question"><br><font color = "#a5adba">*Pick one to see your results!</font><h2><font color = "#fffff">Do <b>YOU</b> personally believe that you are addicted to the internet?</font></h2>
+      <button id="setup">Yes</button>
+      <button id="setup2">No</button></center>
+      </div>
+      <div id="result">
+           
+        </div>
+        <div id = 'bar'></div>
+    <footer style="background-color:#292c2f;">
+    	<div class="container">
+    	<br>
+    	<h3 style="text-align:center; color:#8d9093">Reduce Internet Addiction</h3>				
+    	<h6 style="text-align:center; color:white;"><a href="../index.html" style="color:white">Home</a> · <a href="about_us.html" style="color:white">About</a> · <a href="contact_us.html" style="color:white">Contact</a></h6><br>
+    	<p style="text-align:center; color:#8d9093; font-size:15px">Reduce Internet Addiction © 2019</p><br>
+    	</div>
+    </footer>
 </body>
-
 </html>
-
-
-
-
-
