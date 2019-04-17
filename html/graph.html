@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+	<title>Phone Relief</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+	<link href="https://fonts.googleapis.com/css?family=Noto+Sans" rel="stylesheet">
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<link rel="stylesheet" href="../subpage/css/style.css">
+	<script type='text/javascript' src='jquery.min.js'></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script>
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+	<style>
+	</style>
+	
+</head>
+
+<body>
+	<ul id="nav">
+		<li style="float: left;" id="tabs"><a href="../index.html">Home</a></li>
+		<li style="float: left;" id="tabs"><a href="about_us.html ">About us</a></li>
+		<li style="float: left;" id="tabs"><a class="active">Phone Relief</a></li>
+		<li style="float: left;" id="tabs"><a href="survey.html">Survey</a></li>
+		<li style="float:right" id="tabs"><a href="contact_us.html">Contact us</a></li>
+	</ul>
+	<div class="container">
+		<canvas id="myChart"></canvas>
+	</div>
+	<div class="container">
+		<canvas id="myChart2" style="height:40vh; width:40vw"></canvas>
+	</div>
+	<div class="container">
+		<canvas id="myChart3" style="height:40vh; width:40vw"></canvas>
+	</div>
+	<div class="container">
+		<canvas id="myChart4" style="height:40vh; width:40vw"></canvas>
+	</div>
+	
+	<footer style="background-color:#292c2f;">
+		<div class="container">
+			<br>
+			<h3 style="text-align:center; color:#8d9093">Reduce Internet Addiction</h3>
+			<h6 style="text-align:center; color:white;"><a href="../index.html" style="color:white">Home</a> · <a href="about_us.html" style="color:white">About</a> · <a href="contact_us.html" style="color:white">Contact</a></h6><br>
+			<div style="text-align:center">
+				<h3 style="color:white;">Connect With Us</h3>
+				<a href=""><i style="font-size:30px; display:inline-block;" class="fa fa-facebook"></i></a>
+				<div style="width:30px; display:inline-block"></div>
+				<a href="https://twitter.com/InternetReduce" style="font-size:30px"><i class="fa fa-twitter"></i></a>
+			</div><br>
+			<p style="text-align:center; color:#8d9093; font-size:15px">Reduce Internet Addiction &copy;
+				<script>
+					document.write(new Date().getFullYear());
+				</script>
+			</p><br>
+		</div>
+	</footer>
+	<script>
+		// Global Options
+		Chart.defaults.global.defaultFontFamily = 'Lato';
+		Chart.defaults.global.defaultFontSize = 16;
+		Chart.defaults.global.defaultFontColor = '#777';
+		let myChart = document.getElementById('myChart').getContext('2d');
+		let chart1 = new Chart(myChart, {
+			type: 'horizontalBar', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
+			data: {
+				labels: ['Never', 'Occasionally', 'Often', 'Almost always', 'Unsure'],
+				datasets: [{
+					// label: ['In Person', ],
+					data: [
+						22,
+						77,
+						100,
+						23,
+						6
+					],
+					//backgroundColor:'green',
+					backgroundColor: [
+						'rgba(255, 99, 132, 0.6)',
+						'rgba(54, 162, 235, 0.6)',
+						'rgba(255, 206, 86, 0.6)',
+						'rgba(75, 192, 192, 0.6)',
+						'rgba(153, 102, 255, 0.6)',
+
+					],
+					borderWidth: 1,
+					borderColor: '#777',
+					hoverBorderWidth: 1,
+					hoverBorderColor: '#000'
+				}]
+			},
+			options: {
+				title: {
+					display: true,
+					text: 'How often do you lose track of time while on the internet?',
+					fontSize: 20
+
+				},
+				legend: {
+					display: false,
+					labels: {
+						fontColor: '#000'
+					}
+				},
+				layout: {
+					padding: {
+						left: 0,
+						right: 0,
+						bottom: 0,
+						top: 0
+					}
+				},
+				tooltips: {
+					callbacks: {
+						label: function(tooltipItem, data) {
+							//get the concerned dataset
+							var dataset = data.datasets[tooltipItem.datasetIndex];
+							//calculate the total of this data set
+							var total = dataset.data.reduce(function(previousValue, currentValue, currentIndex, array) {
+								return previousValue + currentValue;
+							});
+							//get the current items value
+							var currentValue = dataset.data[tooltipItem.index];
+							//calculate the precentage based on the total and current item, also this does a rough rounding to give a whole number
+							var percentage = Math.floor(((currentValue / total) * 100) + 0.5);
+
+							return currentValue + " (" + percentage + "%)";
+						}
+					}
+				}
+			}
+		});
+
+
+		let myChart2 = document.getElementById('myChart2').getContext('2d');
+		let chart2 = new Chart(myChart2, {
+			type: 'bar', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
+			data: {
+				labels: ['Under 1 hour', '1-2 hours', '3-4 hours ', '4-5 hours', 'Over 6 hours'],
+				datasets: [{
+					label: [],
+					data: [
+						9,
+						21,
+						82,
+						64,
+						52
+					],
+					//backgroundColor:'green',
+					backgroundColor: [
+						'rgba(255, 99, 132, 0.6)',
+						'rgba(54, 162, 235, 0.6)',
+						'rgba(255, 206, 86, 0.6)',
+						'rgba(75, 192, 192, 0.6)',
+						'rgba(153, 102, 255, 0.6)'
+					],
+					borderWidth: 1,
+					borderColor: '#777',
+					hoverBorderWidth: 1,
+					hoverBorderColor: '#000'
+				}]
+			},
+			options: {
+				title: {
+					display: true,
+					text: 'Approximately how many hours do you use the internet (on your electronic devices) per day?',
+					fontSize: 20
+
+				},
+				legend: {
+					display: false,
+					labels: {
+						fontColor: '#000'
+					}
+				},
+				layout: {
+					padding: {
+						left: 0,
+						right: 0,
+						bottom: 0,
+						top: 0
+					}
+				},
+				tooltips: {
+					callbacks: {
+						label: function(tooltipItem, data) {
+							//get the concerned dataset
+							var dataset = data.datasets[tooltipItem.datasetIndex];
+							//calculate the total of this data set
+							var total = dataset.data.reduce(function(previousValue, currentValue, currentIndex, array) {
+								return previousValue + currentValue;
+							});
+							//get the current items value
+							var currentValue = dataset.data[tooltipItem.index];
+							//calculate the precentage based on the total and current item, also this does a rough rounding to give a whole number
+							var percentage = Math.floor(((currentValue / total) * 100) + 0.5);
+
+							return currentValue + " (" + percentage + "%)";
+						}
+					}
+				}
+
+			}
+		});
+		let myChart3 = document.getElementById('myChart3').getContext('2d');
+		let chart3 = new Chart(myChart3, {
+			type: 'pie', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
+			data: {
+				labels: ['Not familiar', 'Somewhat familiar', 'Mostly familiar', 'Familiar'],
+				datasets: [{
+					label: [],
+					data: [
+						193,
+						25,
+						9,
+						1
+					],
+					//backgroundColor:'green',
+					backgroundColor: [
+						'rgba(255, 99, 132, 0.6)',
+						'rgba(54, 162, 235, 0.6)',
+						'rgba(255, 206, 86, 0.6)',
+						'rgba(75, 192, 192, 0.6)'
+					],
+					borderWidth: 1,
+					borderColor: '#777',
+					hoverBorderWidth: 3,
+					hoverBorderColor: '#000'
+				}]
+			},
+			options: {
+				title: {
+					display: true,
+					text: "Familiarity with internet addiction organizations",
+					fontSize: 20
+				},
+				legend: {
+					display: true,
+					labels: {
+						fontColor: '#000'
+					}
+				},
+				layout: {
+					padding: {
+						left: 0,
+						right: 0,
+						bottom: 0,
+						top: 0
+					}
+				},
+				tooltips: {
+					callbacks: {
+						label: function(tooltipItem, data) {
+							//get the concerned dataset
+							var dataset = data.datasets[tooltipItem.datasetIndex];
+							//calculate the total of this data set
+							var total = dataset.data.reduce(function(previousValue, currentValue, currentIndex, array) {
+								return previousValue + currentValue;
+							});
+							//get the current items value
+							var currentValue = dataset.data[tooltipItem.index];
+							//calculate the precentage based on the total and current item, also this does a rough rounding to give a whole number
+							var percentage = Math.floor(((currentValue / total) * 100) + 0.5);
+
+							return currentValue + " (" + percentage + "%)";
+						}
+					}
+				}
+			}
+		});
+		let myChart4 = document.getElementById('myChart4').getContext('2d');
+		let chart4 = new Chart(myChart4, {
+			type: 'horizontalBar', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
+			data: {
+				labels: ['Web surfing', 'Entertainment (videos/music)', 'Social media ', 'Online-Gaming', 'Research/Homework', 'Work', 'Other'],
+				datasets: [{
+					label: [],
+					data: [
+						31,
+						46,
+						41,
+						28,
+						29,
+						40,
+						13
+					],
+					//backgroundColor:'green',
+					backgroundColor: [
+						'rgba(255, 99, 132, 0.6)',
+						'rgba(54, 162, 235, 0.6)',
+						'rgba(255, 206, 86, 0.6)',
+						'rgba(75, 192, 192, 0.6)',
+						'rgba(153, 102, 255, 0.6)',
+						'rgba(255, 159, 64, 0.6)',
+						'rgba(49, 162, 30, 0.6)'
+					],
+					borderWidth: 1,
+					borderColor: '#777',
+					hoverBorderWidth: 1,
+					hoverBorderColor: '#000'
+				}]
+			},
+			options: {
+				title: {
+					display: true,
+					text: 'What internet activity do you do most often?',
+					fontSize: 20
+
+				},
+				legend: {
+					display: false,
+					labels: {
+						fontColor: '#000'
+					}
+				},
+				layout: {
+					padding: {
+						left: 0,
+						right: 0,
+						bottom: 0,
+						top: 0
+					}
+				},
+				tooltips: {
+					callbacks: {
+						label: function(tooltipItem, data) {
+							//get the concerned dataset
+							var dataset = data.datasets[tooltipItem.datasetIndex];
+							//calculate the total of this data set
+							var total = dataset.data.reduce(function(previousValue, currentValue, currentIndex, array) {
+								return previousValue + currentValue;
+							});
+							//get the current items value
+							var currentValue = dataset.data[tooltipItem.index];
+							//calculate the precentage based on the total and current item, also this does a rough rounding to give a whole number
+							var percentage = Math.floor(((currentValue / total) * 100) + 0.5);
+
+							return currentValue + " (" + percentage + "%)";
+						}
+					}
+				}
+
+			}
+		});
+	</script>
+</body>
+
+</html>

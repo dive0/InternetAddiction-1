@@ -2,6 +2,7 @@
     display: grid;
     grid-template-columns: repeat(12, 1fr);
 }
+
 @media(min-width: 0px){
     #mission-title,
     #org-t{
@@ -28,6 +29,8 @@
     #paras{
         font-size: 18px;
     }
+
+
 }
 
 @media(max-width: 600px){

@@ -50,5 +50,8 @@
     "uglify-es": "^3.3.10"
   },
   "homepage": "https://bitbucket.org/pasqualevitiello/ruby#readme",
-  "main": ".eslintrc.js"
+  "main": ".eslintrc.js",
+  "dependencies": {
+    "chart.js": "^2.8.0"
+  }
 }
